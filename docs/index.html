@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>psd-reader Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top ">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">psd-reader</a>
+			<ul class="nav">
+				
+				<li class="dropdown">
+					<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="PsdReader.html">PsdReader</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b
+						class="caret"></b></a>
+
+					<ul class="dropdown-menu ">
+						
+						<li>
+							<a href="tutorial-Compatibility Mode.html">Compatibility Mode</a>
+						</li>
+						
+						<li>
+							<a href="tutorial-Dematting.html">Dematting</a>
+						</li>
+						
+						<li>
+							<a href="tutorial-Gamma.html">Gamma</a>
+						</li>
+						
+						<li>
+							<a href="tutorial-ICC.html">ICC</a>
+						</li>
+						
+						<li>
+							<a href="tutorial-Overview.html">Overview</a>
+						</li>
+						
+						<li>
+							<a href="tutorial-Resources.html">Resources</a>
+						</li>
+						
+
+					</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+		<div class="span8">
+			
+				<div id="main">
+					
+
+
+	
+	<span class="page-title">Index</span>
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><h1>﻿psd-reader</h1><p>Read and display Adobe&reg; Photoshop&reg; PSD files directly in the web browser.</p>
+<ul>
+<li>Use PSD files as an image source for canvas or your app in general</li>
+<li>Convert PSD to PNG or JPEG directly in the browser (<a href="https://github.com/epistemex/canvas-to-tiff">convert to TIFF</a>, <a href="https://github.com/epistemex/canvas-to-bmp">convert to BMP</a>)</li>
+</ul>
+<p><a href="https://epistemex.github.io/psd-reader/psddrop.html"><img src="http://i.imgur.com/yQ4Irq2.png" alt="demo snapshot"></a></p>
+<h2>Features</h2><ul>
+<li>Fast and lightweight</li>
+<li>Asynchronous and segment-based decoding (no UI-blocking)</li>
+<li>Reads all supported formats (Greyscale, Bitmap, Indexed, RGB, CMYK, DuoTone, TriTone, QuadTone, Multi-channel and Lab)</li>
+<li>Reads all color depths (1/8/16/32 bits)</li>
+<li>Handles alpha channel, and transparency for indexed mode</li>
+<li>De-matte (matte removal) processing of images with alpha-channel (eliminates &quot;halo&quot; problems)</li>
+<li>Supports RLE compressed and uncompressed image data</li>
+<li>By default, converts all formats to RGBA so it can be used directly with canvas</li>
+<li>Canvas helper method with optional scaling and high-quality down-sampling</li>
+<li>Optional gamma correction</li>
+<li>By default, auto-corrects display gamma for 32-bit color mode</li>
+<li>Access to the original channel bitmaps (decompressed if needed)</li>
+<li>Access to raw meta and header data</li>
+<li>Access to resource chunks (incl. ID locator method)</li>
+<li>Passive load mode allowing parsing to be invoked manually later</li>
+<li>Validates and performs error checks</li>
+<li>Works in all major browsers (Firefox, Chrome, IE, Opera, Safari).</li>
+<li>For client-side use</li>
+<li>An original parser implementation built from scratch.</li>
+<li>No dependencies</li>
+</ul>
+<h2>Documentation</h2><p>The project is documented and is available as html in the <code>docs</code> folder</p>
+<p>Tutorials and general information is included in the HTML docs.</p>
+<h2>Usage</h2><p>Create a new instance, pass in an URL (or an array buffer), and a callback:</p>
+<pre class="prettyprint source"><code>var psd = new PsdReader({url: &quot;path/to/file.psd&quot;, onLoad: myCallback});</code></pre><p>In your callback you can access the RGBA data:</p>
+<pre class="prettyprint source"><code>function myCallback(e) {
+    var bitmap = this.rgba;
+}</code></pre><p>To get a canvas version of the data:</p>
+<pre class="prettyprint source"><code>function myCallback(e) {
+    var canvas = this.toCanvas();
+    ...
+}</code></pre><p>An already existing ArrayBuffer can be used instead of an URL:</p>
+<pre class="prettyprint source"><code>var psd = new PsdReader({buffer: psdArrayBuffer, onLoad: myCallback});</code></pre><p>There is additional access to the original channel bitmap data in it's native<br>format (8-bit, 16-bit etc.). The header information can be accessed<br>through the info object:</p>
+<pre class="prettyprint source"><code>var width     = psd.info.width;
+var height    = psd.info.height;
+var depth     = psd.info.depth;
+var layers    = psd.info.chunks[3];        // the layers area
+
+var channel0  = psd.bitmaps[0];            // in native format (but uncompressed)
+...</code></pre><p>A method to locate resources is included:</p>
+<pre class="prettyprint source"><code>var icc = psd.findResource(1039);       // find resource with resource ID</code></pre><h2>Requirements</h2><p>A browser with support for HTML5 Canvas and typed arrays.</p>
+<p>There are no dependencies.</p>
+<h2>Compatibility</h2><p>These are generally non-problematic, but something to have in mind:</p>
+<ul>
+<li>Does not intend to parse individual layers</li>
+<li>PSD files must be saved in (the default) compatibility mode (see html docs for details)</li>
+<li>ICC profiles are not parsed/applied (see docs for details)</li>
+</ul>
+<h2>License</h2><ul>
+<li>Free to use for personal and non-commercial projects</li>
+<li>Purchased license required for any commercial use or relation (contact us).</li>
+</ul>
+<p><em>&copy; 2015-2016 Epistemex</em></p>
+<p><img src="http://i.imgur.com/wZSsyt8.png" alt="Epistemex"></p></article>
+    </section>
+
+
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					<p><b><a href='https://github.com/epistemex/'>Epistemex at GitHub</a></b></p>
+					<br />
+					
+					
+		<span class="copyright">
+		Copyright &copy; 2015-2016 Epistemex
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+		on Mon Jan 4th 2016 using the <a
+			href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<div class="span3">
+				<div id="toc"></div>
+			</div>
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<!--<script src="scripts/sunlight.js"></script>-->
+	<script src="scripts/docstrap.lib.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+	<script>
+		$( function () {
+			$( "[id*='$']" ).each( function () {
+				var $this = $( this );
+
+				$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+			} );
+
+			$( "#toc" ).toc( {
+				anchorName  : function ( i, heading, prefix ) {
+					return $( heading ).attr( "id" ) || ( prefix + i );
+				},
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : "100px"
+			} );
+
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+			$( '.dropdown-toggle' ).dropdown();
+//			$( ".tutorial-section pre, .readme-section pre" ).addClass( "sunlight-highlight-javascript" ).addClass( "linenums" );
+
+			$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+				var $this = $( this );
+
+				var example = $this.find( "code" );
+				exampleText = example.html();
+				var lang = /{@lang (.*?)}/.exec( exampleText );
+				if ( lang && lang[1] ) {
+					exampleText = exampleText.replace( lang[0], "" );
+					example.html( exampleText );
+					lang = lang[1];
+				} else {
+					lang = "javascript";
+				}
+
+				if ( lang ) {
+
+					$this
+						.addClass( "sunlight-highlight-" + lang )
+						.addClass( "linenums" )
+						.html( example.html() );
+
+				}
+			} );
+
+			Sunlight.highlightAll( {
+				lineNumbers : false,
+				showMenu : true,
+				enableDoclinks : true
+			} );
+		} );
+	 </script>
+
+
+
+	<!--Navigation and Symbol Display-->
+	
+
+
+	<!--Google Analytics-->
+	
+
+</body>
+</html>
