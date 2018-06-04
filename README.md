@@ -69,14 +69,14 @@ through the info object:
     var height    = psd.info.height;
     var depth     = psd.info.depth;
     var layers    = psd.info.chunks[3];		// the layers area
-    
+
     var channel0  = psd.bitmaps[0];	        // in native format (but uncompressed)
     ...
 
 Locate internal resources (low-level):
 
     var icc = psd.findResource(1039);       // find resource with resource ID
-    
+
 
 Requirements
 ------------
@@ -89,7 +89,7 @@ There are no dependencies.
 See also
 --------
 
-- **[canvas-to-tiff](https://github.com/epistemex/canvas-to-tiff)**
+- **[canvas-to-tiff](https://gitlab.com/epistemex/canvas-to-tiff)**
 
 
 Compatibility
