@@ -113,7 +113,7 @@ License
 
 [![License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-[Contact us](mailto:github@epistemex.com) if you need a commercial license.
+[Contact us](mailto:70324091+epistemex@users.noreply.github.com) if you need a commercial license.
 
 *&copy; 2015-2017, 2024 Epistemex*
 
