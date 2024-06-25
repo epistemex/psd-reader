@@ -93,7 +93,7 @@ There are no dependencies.
 See also
 --------
 
-- **[canvas-to-tiff](https://gitlab.com/epistemex/canvas-to-tiff)**
+- **[canvas-to-tiff](https://github.com/epistemex/canvas-to-tiff)**
 
 
 Compatibility
